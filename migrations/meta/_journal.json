@@ -15,6 +15,20 @@
       "when": 1744555768602,
       "tag": "0001_unknown_betty_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1744645810925,
+      "tag": "0002_curious_sally_floyd",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1744653719700,
+      "tag": "0003_lively_quasar",
+      "breakpoints": true
     }
   ]
 }
