@@ -15,6 +15,15 @@ interface Book {
 
 }
 
+interface User {
+    id: string
+    fullName: string
+    email: string
+    universityId: number
+    universityCard: string
+
+}
+
 interface AuthCredentials {
     fullName: string;
     email: string;

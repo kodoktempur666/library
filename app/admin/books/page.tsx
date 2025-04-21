@@ -1,8 +1,13 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { DataTable } from "@/components/admin/table-books/data-table";
+import { columns } from "@/components/admin/table-books/columns";
+import { getBooks } from "@/lib/admin/actions/book";
 
-const Page = () => {
+const Page = async () => {
+  const result = await getBooks();
+
   return (
     <section className="w-full rounded-2xl bg-white p-7">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -15,7 +20,7 @@ const Page = () => {
       </div>
 
       <div className="mt-7 w-full overflow-hidden">
-        <p>Table</p>
+        <DataTable columns={columns} data={result}/>
       </div>
     </section>
   );
