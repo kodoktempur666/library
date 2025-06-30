@@ -8,7 +8,10 @@ import { db } from '@/database/drizzle'
 import { users } from '@/database/schema'
 import { eq } from 'drizzle-orm'
 
+
+
 const layout = async ({children}: {children: React.ReactNode}) => {
+
     const session = await auth()
 
     if(!session?.user?.id) redirect('/sign-in')
@@ -27,7 +30,7 @@ const layout = async ({children}: {children: React.ReactNode}) => {
         <Sidebar session={session} />
         <div className='admin-container'>
             <Header session={session} />
-            {children}
+                {children}
         </div>
     </main>
   )

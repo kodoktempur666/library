@@ -15,10 +15,15 @@ const Header = ({session} : {session: Session}) => {
                 <Image src='/icons/logo.svg' alt='logo' width={40} height={50} />
             </Link>
 
-            <ul className='flex flex-row items-center gap-8'>
+                <ul className='flex flex-row items-center gap-8'>
                 <li>
                     <Link href='/library' className={cn('text-base cursor-pointer capitalize', pathname === '/library' ? 'text-light-200' : 'text-light-100')}>
                         Library
+                    </Link>
+                </li>
+                <li>
+                    <Link href='/admin' className={cn('text-base cursor-pointer capitalize', pathname === '/admin' ? 'text-light-200' : 'text-light-100')}>
+                        Admin
                     </Link>
                 </li>
 
