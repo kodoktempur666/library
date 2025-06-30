@@ -6,12 +6,13 @@ import { IKImage } from "imagekitio-next";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Eye } from "lucide-react";
-import { Avatar, AvatarFallback  } from "@/components/ui/avatar";
+import { Eye, Trash } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getInitals } from "@/lib/utils";
-import { approveuser } from "@/lib/admin/actions/users";
+import { approveuser, deleteUser } from "@/lib/admin/actions/users";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from 'next/navigation';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 
 
@@ -144,4 +145,67 @@ export const columns: ColumnDef<User>[] = [
             );
         },
     },
+    {
+        id: "delete",
+        header: "Delete",
+        cell: ({ row }) => {
+            const router = useRouter();
+            const [loading, setLoading] = useState(false);
+            const user = row.original;
+
+            const handleDelete = async () => {
+                setLoading(true)
+                const res = await deleteUser(user.id)
+                setLoading(false)
+                if (res.success) {
+                    toast({
+                        title: "Success",
+                        description: "User deleted successfully.",
+                        variant: "default",
+                    })
+                    router.refresh()
+                } else {
+                    toast({
+                        title: "Error",
+                        description: "Failed to delete user.",
+                        variant: "destructive",
+                    })
+                }
+
+            }
+            return (
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button
+                            variant="destructive"
+                            size="icon"
+                            onClick={handleDelete}
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <span className="text-xs">...</span>
+                            ) : (
+                                <Trash className="w-4 h-4" />
+                            )}
+                        </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogHeader>Are you sure?</AlertDialogHeader>
+                            <AlertDialogDescription>
+                                This action cannot be undone. This will permanently delete this user and remove their data from our servers.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={handleDelete}>
+                                {loading ? "..Deleting" : "Delete"}
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+
+            );
+        }
+    }
 ]

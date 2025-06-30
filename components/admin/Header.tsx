@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+
 import { Session } from 'next-auth'
 import Link from 'next/link'
 import React from 'react'
@@ -14,7 +14,7 @@ const Header = ({ session }: { session: Session }) => {
           ADMIN PANEL
         </p>
 
-          <Link href='/' className='text-base cursor-pointer capitalize text-black'>
+          <Link href='/' className='text-base cursor-pointer underline font-extrabold text-black'>
             Beranda
           </Link>
 

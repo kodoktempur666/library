@@ -43,3 +43,18 @@ export async function getUsers() {
   
     return result;
   }
+
+export const deleteUser = async (id: string) => {
+    try {
+        const deletedUser = await db.delete(users).where(eq(users.id, id))
+
+        if (deletedUser?.error) {
+            return { success: false, error: deletedUser.error };
+        }
+
+        return { success: true };
+    } catch (error) {
+        console.log(error, "Delete user error")
+        return { success: false, error: "Delete user error" };
+    }
+}
